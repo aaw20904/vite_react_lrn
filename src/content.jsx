@@ -3,7 +3,7 @@ import employee from './assets/employe.jpg'
   function Header(){
     return(
         <div className="d-flex flex-column justify-content-start align-items-center p-2">
-          <img className='img-fluid' src={employee} alt="employee" />
+          <img className='img-fluid rounded' src={employee} alt="employee" />
           <h2 className='h1' style={{fontFamily:"Inter",marginTop:"18px", marginBottom:"8px"}}>Aida Koric</h2>
             <h3 className='h5 my-1'> WEB project Manager</h3>
             <h5 className='h6 my-1'>does job well</h5>
@@ -43,7 +43,7 @@ import employee from './assets/employe.jpg'
   
 function Footer () {
   return(
-    <div className='d-flex justify-content-around align-items-center flex-row my-3 '>
+    <div className='d-flex justify-content-around align-items-center flex-row my-5 '>
         <i className='big-ico'>&#xF5EF;</i>
         <i className='big-ico'>&#xF344;</i>
         <i className='big-ico'>&#xF437;</i>

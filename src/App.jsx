@@ -6,7 +6,7 @@ import {Header,SocialNetButtons,About,Footer} from "./content.jsx"
 function App() {
 
  return (
-  <div className='container w-100 bg-dark text-light py-2 border border-danger d-flex flex-column jusify-content-around'>
+  <div style={{maxWidth:"640px"}} className='container w-100 bg-dark text-light py-2 border border-danger d-flex flex-column jusify-content-around m-4'>
     <Header />
     <SocialNetButtons />
     <About />
