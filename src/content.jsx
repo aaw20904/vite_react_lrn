@@ -1,34 +1,54 @@
 import reactLogo from './assets/react.svg'
-import "./assets/fonts/Inter/inter-v13-cyrillic_latin-regular.woff2"
-function Header(){
+import employee from './assets/employe.jpg'
+  function Header(){
     return(
-        <article className='d-flex justify-content-between align-items-center bg-gray w-100 p-1'>
-            <section className="p-2 d-flex flex-row justify-content-start bg-gray align-items-center"> 
-                <img src={reactLogo}  className="logo m-0 p-0" alt="Vite logo" />
-                <h2 className='h2 m-0 p-0 text-light bg-gray' style={{fontFamily:"Inter"}}>ReactFacts</h2>
-            </section>
-            <section>
-            <h4 className='h4 bg-gray text-light' style={{fontFamily:"Inter"}}>React cpourse-Proj0001</h4>
-            </section>
-        
-        </article>
+        <div className="d-flex flex-column justify-content-start align-items-center p-2">
+          <img className='img-fluid' src={employee} alt="employee" />
+          <h2 className='h1' style={{fontFamily:"Inter",marginTop:"18px", marginBottom:"8px"}}>Aida Koric</h2>
+            <h3 className='h5 my-1'> WEB project Manager</h3>
+            <h5 className='h6 my-1'>does job well</h5>
+        </div>
     )
-}
+  }
 
-function MainContent () {
-    return (
-        <article className='bg-dark text-white d-flex flex-column justify-content-start align-items-start'>
-          <h1 className='h1 m-2 bg-dark text-white'  style={{fontFamily:"Aclonica"}}>Fun facts about React</h1>
-          <nav className='m-2'>
-            <ul className='bg-dark text-white m-2 text-start' >
-                <li  style={{fontFamily:"Aclonica"}}>Was releaed firstly in 2013</li>
-                <li style={{fontFamily:"Aclonica"}}>Was originally created by Jordan Walke </li>
-                <li style={{fontFamily:"Aclonica"}}>Has over 100K stars on GitHub</li>
-                <li style={{fontFamily:"Aclonica"}}>Powers thousand of enterprise apps, including mobile Apps</li>           
-            </ul>
-          </nav>
-        </article>
+  function SocialNetButtons(){
+    return(
+        <div className='d-flex justify-content-around align-items-between flex-row w-100 py-3 px-2'>
+          <a href="#" className='btn btn-light'><i className='mx-2 small-ico'>&#xF32F;</i>Mail</a>
+          <a href="#" className='btn btn-primary'><i className='mx-2 small-ico'> &#xF472;</i>LinkedIn</a>
+        </div>
     )
-}
+  }
 
-export {Header, MainContent}
+  function About(){
+    return(
+         <div className='d-flex justify-content-around align-items-between flex-column w-100 p-2'>
+            <h3 className='h3'>About</h3>
+            <p className='p text-start'> &nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet
+             consectetur adipisicing elit. Tenetur aspernatur quo 
+             perspiciatis beatae explicabo deleniti eum amet
+             eos ut iusto laboriosam iure sit sed, porro officiis 
+             quaerat repellendus praesentium accusamus?</p>
+
+             <h3 className='h3 '>Interests</h3>
+             <p className='p text-start'>&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet consectetur,
+              adipisicing elit. Totam rerum ipsum voluptates, veritatis,
+               nulla veniam pariatur impedit est 
+             illum sit possimus quisquam? Necessitatibus adipisci, 
+             fugiat modi beatae pariatur labore expedita?</p>
+         </div>
+    )
+  }
+
+  
+function Footer () {
+  return(
+    <div className='d-flex justify-content-around align-items-center flex-row my-3 '>
+        <i className='big-ico'>&#xF5EF;</i>
+        <i className='big-ico'>&#xF344;</i>
+        <i className='big-ico'>&#xF437;</i>
+        <i className='big-ico'>&#xF3ED;</i>
+    </div>
+  )
+}
+export { Header , SocialNetButtons, About,Footer }
