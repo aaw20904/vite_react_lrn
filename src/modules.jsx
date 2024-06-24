@@ -1,35 +1,7 @@
-function TravelCard({tr={title:"Mount Fuji",
-        key: 1,
-        location:"Japan",
-        googleMapLocation:"#",
-        starDate:"12Jan 1981",
-        description:`Mount Fuji (富士山, Fujisan) is with 3776 meters Japan's highest 
-            mountain. It is not surprising that the nearly perfectly shaped volcano has 
-            been worshiped as a sacred mountain and experienced 
-            big popularity among artists and common people throughout the centuries.`,
-        imageUrl: "https://cdn.britannica.com/47/80547-050-8B316D38/Field-green-tea-Mount-Fuji-Shizuoka-prefecture.jpg?w=300"
-    }}){
-        console.log(`key: ${tr.key}`);
-    return (
-        <li key={tr.key} className="d-flex flex-row justify-content-start align-items-stretch m-2">
-            <img className="img-fluid" src={tr.imageUrl} ></img>
-            <article className="d-flex flex-column justify-content-start align-items-start mx-2">
-                <div className="d-flex flex-row justify-content-start align-items-center m-2">
-                     <i className="big-ico mx-1 my-0">&#xF3E7;</i>
-                     <h4 className="h4 mx-1 my-0">{tr.location.toUpperCase()}</h4>
-                     <a href="https://example.com" className="text-decoration-underline mx-1 my-0">View on GoogleMaps</a>
-                </div>
-                <h3 className="h3 m-2">{tr.title}</h3>
-                <h5 className="h5 m-2">{tr.starDate}</h5>
-                <p className="text-start">&nbsp;&nbsp;{tr.description}</p>
-                
-            </article>
-            <video src="blob:https://www.youtube.com/87791e11-4feb-4d1a-8d7d-e6de682356a2"></video>
 
-            
-        </li>
-    )
-}
+import {images} from  "./data.js"
+
+ 
 
 function Title(){
     return(
@@ -37,4 +9,62 @@ function Title(){
     )
 }
 
-export {TravelCard, Title}
+
+
+function MemeHeader(){
+    return(
+       <nav className="meme-header p-3 d-flex flex-row justify-content-between align-items-center w-100">
+        <div className="d-flex flex-row align-items-center ustify-content-center">
+            <i className="big-ico text-white">&#xF226;</i>
+            <h4 className="h4 text-white py-0 my-0 mx- 1">MemeGenerator</h4>
+        </div>
+        <h4 className="h4 text-white">Proj3</h4>
+       </nav>
+    )
+}
+
+function Meme(){
+    let img_src="https://i.imgflip.com/2/72epa9.jpg"
+
+    function onClick(ev){
+        let rimg = getRandomImage();
+       
+        img_src = rimg;
+        console.log(greeting("Bob"));
+    }
+
+    function greeting(name){
+        let response ="";
+        let hours = new Date().getHours();
+        if (hours >= 4 && hours < 12){
+            response="morning"
+        } else if (hours >= 12 && hours < 17){
+            response="afternoon"
+        } else if(hours >= 17 && hours < 20){
+            response="evening"
+        } else if (hours >= 20 && hours < 4){
+            response="night"
+        }
+        return `Good ${response}, ${name}!`;
+    }
+
+
+    function getRandomImage(){
+        let randomNumber= (Math.random()*2)|0;
+        return images.data.memes[randomNumber].url;
+    }
+  return(
+    <main>
+       <form className="parent-form my-2">
+                <input type="text" className="div1 rounded m-1 form-control " placeholder="shut up" name="" id="" />
+                <input type="text" className="div2 m-1 form-control  " placeholder="and take my money" name="" id=""/>
+                <button type="button" className="div3 btn btn-primary  w-100" onClick={onClick}> get a new image </button>
+
+       </form>
+       <img src={img_src} className="img-fluid" ></img>
+    </main>
+   
+  )
+}
+
+export {  Title, MemeHeader, Meme}
