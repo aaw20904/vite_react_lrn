@@ -10,11 +10,9 @@ function App() {
  let content = places.map((x)=><TravelCard tr={x} key={x.key} />)
  console.log(content)
  return (
-  <ul className='container d-flex flex-column justify-content-start align-items-start'>
-    
-     {content}
-  </ul>
- 
+   <ul className='container d-flex flex-column justify-content-start align-items-start'>
+      {content}
+   </ul>
   )
 }
 

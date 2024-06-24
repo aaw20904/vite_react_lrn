@@ -24,6 +24,8 @@ function TravelCard({tr={title:"Mount Fuji",
                 <p className="text-start">&nbsp;&nbsp;{tr.description}</p>
                 
             </article>
+            <video src="blob:https://www.youtube.com/87791e11-4feb-4d1a-8d7d-e6de682356a2"></video>
+
             
         </li>
     )
