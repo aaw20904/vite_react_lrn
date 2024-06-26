@@ -1,6 +1,6 @@
 
 import {images} from  "./data.js"
-
+import React from "react";
  
 
 function Title(){
@@ -24,35 +24,25 @@ function MemeHeader(){
 }
 
 function Meme(){
-    let img_src="https://i.imgflip.com/2/72epa9.jpg"
-
+    const [meme , memeSetter] = React.useState({topText:"",bottomText:"",url:"https://imgflip.com/imgflip_white_96.png"});
+       const [allMemeImages, allMemeImagesSetter] = React.useState(images.data.memes);   
+     
+     
+     
     function onClick(ev){
         let rimg = getRandomImage();
-       
-        img_src = rimg;
-        console.log(greeting("Bob"));
+        memeSetter( {...meme, url:allMemeImages[rimg].url});
+        
     }
 
-    function greeting(name){
-        let response ="";
-        let hours = new Date().getHours();
-        if (hours >= 4 && hours < 12){
-            response="morning"
-        } else if (hours >= 12 && hours < 17){
-            response="afternoon"
-        } else if(hours >= 17 && hours < 20){
-            response="evening"
-        } else if (hours >= 20 && hours < 4){
-            response="night"
-        }
-        return `Good ${response}, ${name}!`;
-    }
-
-
+    
     function getRandomImage(){
-        let randomNumber= (Math.random()*2)|0;
-        return images.data.memes[randomNumber].url;
+        return (Math.random()*9)|0;
+         
     }
+ 
+
+
   return(
     <main>
        <form className="parent-form my-2">
@@ -61,7 +51,9 @@ function Meme(){
                 <button type="button" className="div3 btn btn-primary  w-100" onClick={onClick}> get a new image </button>
 
        </form>
-       <img src={img_src} className="img-fluid" ></img>
+       <img src={meme.url} className="img-fluid" ></img>
+        
+       
     </main>
    
   )
