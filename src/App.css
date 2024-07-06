@@ -99,3 +99,34 @@ div,section,article,p,h1,h2,h3,h4,h5{
   .job_hi{
     color: red !important;
   }
+
+  .btn-primary{
+    background-color: darkkhaki !important;
+    color:darkred !important;
+    border:  2px solid darkolivegreen !important;
+  }
+  .btn-primary:hover{
+    
+    background-color: cornsilk !important;
+    border: 2px solid darkolivegreen !important;
+  }
+
+  .ref{
+    background-color:lightcoral !important;
+    color: #600000 !important; 
+    cursor:pointer;
+    transition: all ease 300ms;
+  }
+
+  .ref:hover{
+     background-color:#600000 !important;
+    color:lightcoral !important;
+  }  
+
+  .ref-active{
+    background-color: #ffaaaa !important;
+     color: lightcoral !important; 
+  }
+  .nav{
+    background-color: pink;
+  }

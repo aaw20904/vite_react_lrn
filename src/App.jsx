@@ -1,37 +1,31 @@
-import { useState } from 'react'
+import React, { useCallback, useLayoutEffect, useMemo, useState, useEffect, useContext, createContext, useRef } from 'react'
+ 
 import * as bootstrap from 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
-import {User, Planet} from "./User"
 import  './App.css'
- 
+import { Test } from './Text'
  
 
+
+
+
+ const db = [
+  {title:"mytext", id:1234, img:`https://fsymbols.com/thumbs/92.png`},
+   {title:"mytext", id:567, img:`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLHIcIaLPjQJUGH8kSFFlyK1tudziIf8J0GA&s`},
+ {title:"mytext", id:63546, img:`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPdMWsSQvdeClddfzrUX21DDKbKCav_TOLVQ&s`},
+  {title:"mytext", id:7864, img:`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbxbkwZ6YWEemyCcZxN9GWHjkx1_p6JNJA3Q&s`},
+ ]
+
+
+
+
+ 
 function App() {
- const names = ["Anna","Bill","Charlie","Emiliy","George"]
-  const users = [
-    {name: "PEdro", age:22, key:10},
-    {name:"Jake", age:30, key:11},
-    {name:"Bill", age:40, key:12,},
-    {name:"Katherine", age:35, key:13}
-  ]
-
-  const solarsys = [
-    {name:"Mars",isGasPlanet: false},
-    {name:"Earth", isGasPlanet: false},
-    {name:"Jupiter", isGasPlanet: true},
-    {name:"Venus", isGasPlanet: false},
-    {name:"Neptune", isGasPlanet: true},
-    {name:"Uranus", isGasPlanet: true},
-  ] 
-  
-  const content = solarsys.map((value,index)=>{
-    return <Planet x={value} key={index} />
-  })
-
  
+
  return (
-  <div  className='App'>
-     {content}
+  <div className='container d-flex flex-column'>
+   <Test/>   
   </div>
  )
 
