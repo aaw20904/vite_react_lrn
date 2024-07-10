@@ -130,3 +130,10 @@ div,section,article,p,h1,h2,h3,h4,h5{
   .nav{
     background-color: pink;
   }
+
+      .centered-element {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }

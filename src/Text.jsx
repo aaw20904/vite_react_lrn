@@ -1,93 +1,81 @@
-import React, { useState , useEffect, useRef, useReducer,  useCallback, useMemo} from "react";
+import { Button } from "bootstrap";
+import React, { useState , useEffect, useRef, useReducer,  useCallback, useMemo, useLayoutEffect} from "react";
+import {images} from "./data.js" 
 
+          
+ const Item =  React.memo(({cb})=>{ 
 
- const AdditionalButton =React.memo( ({handler})=>{
-     console.log("chRendering", Date.now())
-        return (
-        <button  onClick={handler} className="btn btn-success">additional</button>
-        )
-    } 
- )
+   console.log(Date.now());
+   return(
+    <button className="btn btn-dark" onClick={()=>cb()}>push</button>
+   )
 
+ })
 
+ function Test({c=1}){
+  const [state, setState] = useState(false);
+  
 
- const Test = ({par=123}) =>{
-
-  const initialState={
-    process:false,
-    error: false,
-    success: false,
-    content:""
+  const init={
+    content:false,
+    loading:false,
+    success:false,
+    error:false
   }
 
-  console.log(Date.now(),"rendered")
- 
-   const [trigger, setTrigger] = useState(false);
-   const tm=useRef(null)
-  const [x, setX] = useState(0)
+   const btnHandler = useCallback( ()=>{
+      setState(x=>!x);
+  },[])
 
-    const deep = useCallback(() => {
-    setX((Math.random() * 1000) | 0);
-  }, []);
-
-   useMemo(()=>{deep()},[par]);
-
-  function reducer (state, action) {
-    switch(action.type){
-      case "process":
-       return {...state,error:false, success:false, process:true}
-      break;
+  const reducer = (current, event)=>{
+     switch(event.type){
       case "success":
-       return {...state,process:false, error:false, success:true, content:action.content}
+        return { ...current, success:true, loading:false, content:event.data }
+      break;
+      case "loading":
+        return { ...current, success:false, loading:true, content:false }
       break;
       case "error":
-       return {...state, error:true}
+        return { ...current, success:false, loading:false, content:false, error:event.error}
       break;
-      default:
-      throw new Error("A:Wrong operation")
-    }
+     }      
   }
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-   
-   
-  
+  const [mainState, dispatcher] = useReducer(reducer,init);
 
+ 
 
-
-const handleButtonClick = useCallback(() => {
-    setTrigger(x => !x);
-  }, []);
-
-   useEffect(()=>{
-    const upload=async()=>{
-      dispatch({type:"process"});
-      let data = await fetch("https://catfact.ninja/fact")
-           .then(f=>f.json())
-           .catch(e=>{
-            dispatch({type:"error"})
-           })
-      tm.current.innerText=Date.now();
-      dispatch({type:"success", content:data})
+  useEffect(()=>{
+    const getDataFromInet = async () =>{
+      try{
+         dispatcher({type:"loading"})
+        const resp = await fetch("https://catfact.ninja/fact").then(x=>x.json())
+        dispatcher({type:"success",data:resp.fact})
+      } catch(e) {
+        dispatcher({type:"error",error:e.message})
+      }
+     
     }
-    upload();
-   },[trigger])
 
+    getDataFromInet();
+  },[state])
+
+  
 
   return(
-    <div className="d-flex flex-column align-items-center">
-      {state.process && <div className="spinner-border position-fixed m-2 top-50 left-50" role="status"><span className="visually-hidden">Loading...</span></div> }
-    <button className="btn btn-dark" onClick={ handleButtonClick }>Push</button>
-     {state.success && <h6>{state.content?.fact}</h6>}
-     <h6 ref={tm}></h6>
-     {state.error && <h5 className="text-danger">Unexpected downloading error</h5>}
-     <h6>{x}</h6>
-     <AdditionalButton handler={handleButtonClick }/>
+    <div className="d-flex flex-column algn-items-start justify-content-start">
+      {mainState.success && <h2>Cat Facts</h2>}
+       <section className={mainState.loading ? "d-none":""}><Item cb={btnHandler} /></section>
+       {mainState.content && <h5>{mainState.content}</h5>}
+       <section className={mainState.loading ? "centered-element" : "d-none"}>
+         <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+       </section>
+       {mainState.error && <h5 className="text-danger">{mainState.error}</h5>}
+
     </div>
-  
-    
   )
- }
+}
 
-
- export {Test}
+ export { Test }
