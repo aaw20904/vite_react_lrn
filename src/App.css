@@ -10,8 +10,8 @@
   padding: 2rem;
   text-align: center;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
 }
 
 
@@ -40,100 +40,8 @@
     src: url('../node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2') format('woff2'); 
   }
 
-.text-dark{
-  color:darkgrey  !important;
+body{
+  background-color: #aaff88 !important;
+  color:darkslategrey !important;
+  font-family: "Inter" !important;
 }
-
-.bg-dark{
-  background-color:#202040 !important;
-}
-
-div,section,article,p,h1,h2,h3,h4,h5{
-   font-family: Inter !important;
-}
- 
-
- i{
-  font-family: "Icons" !important;
-  margin-bottom: 0;
- }
- .small-ico{
-  font-size: 14px;
- }
-.big-ico{
-  font-size: 22px;
-}
-.no-margin-bottom{
-  margin-bottom: 0;
-}
-
-.travel-header{
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  background-color: tomato !important;
-}
-
-/** M e m e ****/
-
-.meme-header{
-  background: rgb(50,0,52) !important;
-  background: linear-gradient(90deg, rgba(50,0,52,1) 0%, rgba(153,9,150,1) 100%, rgba(0,212,255,1) 100%) !important;  
-}
-
-.text-white{
-  color: #f080f0 !important;
-}
-
-.parent-form {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  }
-  
-  .div1 { grid-area: 1 / 1 / 2 / 4; }
-  .div2 { grid-area: 1 / 5 / 2 / 8; }
-  .div3 { grid-area: 3 / 1 / 4 / 8; } 
-
-  .job_hi{
-    color: red !important;
-  }
-
-  .btn-primary{
-    background-color: darkkhaki !important;
-    color:darkred !important;
-    border:  2px solid darkolivegreen !important;
-  }
-  .btn-primary:hover{
-    
-    background-color: cornsilk !important;
-    border: 2px solid darkolivegreen !important;
-  }
-
-  .ref{
-    background-color:lightcoral !important;
-    color: #600000 !important; 
-    cursor:pointer;
-    transition: all ease 300ms;
-  }
-
-  .ref:hover{
-     background-color:#600000 !important;
-    color:lightcoral !important;
-  }  
-
-  .ref-active{
-    background-color: #ffaaaa !important;
-     color: lightcoral !important; 
-  }
-  .nav{
-    background-color: pink;
-  }
-
-      .centered-element {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
