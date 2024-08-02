@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import  './App.css'
    
 import {appData} from './1.js'
+import { useRouteLoaderData } from 'react-router-dom'
  
  
  const db = [
@@ -307,82 +308,125 @@ async function decrypt(encryptedData, password) {
 }
 
 
-function saveTextAsFile(text, filename) {
-  const blob = new Blob([text], { type: 'text/plain' });
-  const anchor = document.createElement('a');
-  anchor.href = URL.createObjectURL(blob);
-  anchor.download  = filename;
-  anchor.click();
-  URL.revokeObjectURL(anchor.href);  
+    const template ={
+      enterance:true,
+      login:false,
+      process:false,
+      found:false,
+    }
 
-}
+    const reducer = (data, event)=> {
+        switch(event.type){
+          case "eneterance":
+          return {...template,  enterance:true}
+          break;
+          case "enterance_fail":
+             
+          return {...template, enterance:false}
+          break;
+          case "login_success":
+            
+          return {...template, login:true, enterance:false}
+          break;
+          case "process":
+          return {...template, process:true}
+          break;
+          case "found":
+          return {...template, found:event.data}
+          break;
+        }
+    }
 
+   
 
-
+////////////////////////////////////////---------------------------------------
 
 function App() {
     
     const [trig, setTrig] = useState(false);
     const [map, setMap] = useState(new Map());
+    const [password, setPassword] = useState('');
+    const [searchedKey, setSearchedKey] = useState('');
 
-    const template ={
-      enterToApp:false,
-      processing:false,
-      userSuccess:false,
-      userFail:false,
-      findResult:false,
-      explanation:"",
-      article:0
+ const[usrData, resolver] = useReducer(reducer,template);
+
+async function getMap(){
+    
+    if(trig){
+                    try{                            
+                        let decodedData = await decrypt(appData, password);
+                        let initArray = JSON.parse(decodedData);
+                        setMap(new Map(initArray));
+                        resolver({type:"login_success"});
+                        setTrig(false)
+                    }catch(e){
+                      console.log(e.message);
+                      resolver({type:"enterance_fail"});
+                      setTrig(false);
+                    }
     }
+}
 
-    const reducer = (data, event)=> {
-        switch(event.type){
-          case "eneterToApp":
-          return {...template, enterToApp:true}
-          break;
-          case "processing":
-          return {...template, processing:true}
-          break;
-          case "userSuccess":
-          return {...template, userSuccess:true}
-          break;
-          case "userFail":
-          return {...template, userFail:true}
-          break;
-          case findResult:
-          return {...template, findResult:event.result}
-          break;
+getMap();
 
-        }
-    }
-
-    useEffect(()=>{
+  /*  useEffect(()=>{
 
         const decode =async ()=>{
-           // 
-           // console.log(encodedData);
-           try{
-                  //let longString = JSON.stringify(db);
-                     //    let encodedData = await encrypt(longString,"aaw2090415041982");
-                     
-                            let decodedData = await decrypt(appData,"aaw2090415041982");
-                           let initArray = JSON.parse(decodedData);
-                           setMap(new Map(initArray));
-                         //   saveTextAsFile(encodedData.encrypted,"data.txt");
-                          //  saveTextAsFile(encodedData.iv,"vector.txt");
-           }catch(e){
-            console.log(e.message)
-           }
-           
+      
+           if(trig){
+                  try{                            
+                      let decodedData = await decrypt(appData, password);
+                      let initArray = JSON.parse(decodedData);
+                      setMap(new Map(initArray));
+                      resolver({type:"login_success"});
+                      setTrig(false)
+                  }catch(e){
+                    console.log(e.message);
+                    resolver({type:"enterance_fail"});
+                    setTrig(false);
+                  }
+            }
         }
         decode();
-    },[trig]);
+    },[trig]);*/
 
+const enterPage=(
+  <section className='wrapper d-flex flex-column justify-content-center align-items-center w-100'>
+   <h3>Enter Key</h3>
+   <input id="123456" className='form-control' type="text"  />
+   <button onClick={(ev)=> {setPassword(document.getElementById("123456").value); setTrig(true); }} className='btn btn-dark m-2'>Ok</button>
+  </section>
+)
 
+const failLogin = (
+   <section className='wrapper d-flex flex-column justify-content-center align-items-center w-100'>
+    <h2 className='text-danger'>Access denied!</h2>
+   </section>
+)
+
+const onChangeSearchKey =(ev)=>{
+  resolver({type:"process"});
+    const k = Number(ev.target.value)|0;
+  let found = map.get(k);
+  if(!found){
+    found={txt:"not found", fond:0}
+  }
+  resolver({type:"found", data:found.txt})
+
+}
+const searchPage = (
+  <section className='wrapper d-flex flex-column justify-content-center align-items-center w-100'>
+    <h2 className='text-success m-1'>Введіть код статті:</h2>
+    <input  onChange={(ev)=>onChangeSearchKey(ev)} type="number form-control" className='m-1' id="" />
+     <h5 className={usrData.found ? "":"d-none"}>{usrData.found}</h5>
+   </section>
+)
     return ( 
-    <section className='d-flex flex-column'>
-            <button className='btn btn-dark m-1' onClick={()=>{setTrig(x=>!x)}}>push</button>
-    </section>
+      <section className='d-flex flex-column w-100'>
+              {usrData.enterance && enterPage}
+              {(!usrData.enterance && !usrData.login)  && failLogin }
+              {usrData.login && searchPage}
+      </section>
     )
 
 }
